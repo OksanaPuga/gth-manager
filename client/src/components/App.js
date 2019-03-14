@@ -1,6 +1,7 @@
 import React from 'react';
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import { Router, Route, Switch } from 'react-router-dom';
 
+import history from '../history';
 import routes from '../constants/routes';
 import Layout from './Layout';
 import LandingPage from './landing/LandingPage';
@@ -12,7 +13,7 @@ import HabitsPage from './habits/HabitsPage';
 
 
 const App = () => (
-    <BrowserRouter>
+    <Router history={history}>
         <Layout>
             <Switch>
                 <Route exact path={routes.LANDING} component={LandingPage} />
@@ -23,7 +24,7 @@ const App = () => (
                 <Route path={routes.HABITS} component={HabitsPage} />
             </Switch>
         </Layout>
-    </BrowserRouter>
+    </Router>
 );
 
 export default App;

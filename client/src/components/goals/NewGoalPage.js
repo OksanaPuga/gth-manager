@@ -1,12 +1,15 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { reduxForm, Field } from 'redux-form';
 
+import * as actions from '../../actions/goalsActions'; 
 import routes from '../../constants/routes';
 
 class NewGoalPage extends React.Component {
     onSubmit = formValues => {
-        console.log(formValues);
+        // TODO: add some pre-forming, validation
+        this.props.createGoal(formValues);
     }
 
     render() {
@@ -79,46 +82,40 @@ class NewGoalPage extends React.Component {
     }
 
     renderCathegotySelector() {
-        // TODO: make categories dynamic
-        const select = () => (
-            <select>
-                <option value={null}>No cathegory</option>
-                <option value='health'>Health</option>
-                <option value='finances'>Finances</option>
-                <option value='study'>Study</option>
-                <option value='personal'>Personal</option>
-            </select>
-        );
-
+        // TODO: make categories dynamic             
         return (
             <div className='fluid field'>
                 <label>Cathegory</label>
                 <Field
                     name='cathegory'
-                    component={select}
-                    placeholder='select a cathegory' />
+                    component='select'>
+                    <option value={null}>No cathegory</option>
+                    <option value='health'>Health</option>
+                    <option value='finances'>Finances</option>
+                    <option value='study'>Study</option>
+                    <option value='personal'>Personal</option>
+                </Field>
             </div>
         );
     }
 
     renderImportanceAndComplexitySelectors() {
-        const select = () => (
-            <select>
-                <option value='1'>Very low</option>
-                <option value='2'>Low</option>
-                <option value='3'>Normal</option>
-                <option value='4'>High</option>
-                <option value='5'>Very high</option>
-            </select>
-        );
+        const options = [
+            <option value='1' key='1'>Very low</option>,
+            <option value='2' key='2'>Low</option>,
+            <option value='3' key='3'>Normal</option>,
+            <option value='4' key='4'>High</option>,
+            <option value='5' key='5'>Very high</option>
+        ];
 
         const importanceSelector = (
             <div className='eight wide field'>
                 <label>Goal importance</label>
                 <Field
                     name='importance'
-                    component={select}
-                    placeholder='select goal importance level' />
+                    component='select'>
+                    {options}
+                </Field>
             </div>
         );
 
@@ -127,8 +124,9 @@ class NewGoalPage extends React.Component {
                 <label>Goal complexity</label>
                 <Field
                     name='complexity'
-                    component={select}
-                    placeholder='select goal complexity level' />
+                    component='select'>
+                    {options}
+                </Field>
             </div>
         );
 
@@ -144,4 +142,4 @@ class NewGoalPage extends React.Component {
 
 export default reduxForm({
     form: 'newGoalForm'
-})(NewGoalPage);
+})(connect(null, actions)(NewGoalPage));
