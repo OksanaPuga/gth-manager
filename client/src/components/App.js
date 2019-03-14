@@ -1,10 +1,12 @@
 import React from 'react';
-import { BrowserRouter, Route } from 'react-router-dom';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
+import routes from '../constants/routes';
 import Layout from './Layout';
 import LandingPage from './landing/LandingPage';
 import TodayPage from './today/TodayPage';
 import GoalsPage from './goals/GoalsPage';
+import NewGoalPage from './goals/NewGoalPage';
 import TasksPage from './tasks/TasksPage';
 import HabitsPage from './habits/HabitsPage';
 
@@ -12,11 +14,14 @@ import HabitsPage from './habits/HabitsPage';
 const App = () => (
     <BrowserRouter>
         <Layout>
-            <Route exact path='/' component={LandingPage} />
-            <Route path='/today' component={TodayPage} />
-            <Route path='/goals' component={GoalsPage} />
-            <Route path='/tasks' component={TasksPage} />
-            <Route path='/habits' component={HabitsPage} />
+            <Switch>
+                <Route exact path={routes.LANDING} component={LandingPage} />
+                <Route path={routes.TODAY} component={TodayPage} />
+                <Route exact path={routes.NEW_GOAL} component={NewGoalPage} />
+                <Route path={routes.GOALS} component={GoalsPage} />
+                <Route path={routes.TASKS} component={TasksPage} />
+                <Route path={routes.HABITS} component={HabitsPage} />
+            </Switch>
         </Layout>
     </BrowserRouter>
 );

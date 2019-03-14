@@ -60,7 +60,6 @@ $sidebar-width: 200px;
     }
 
     .content {
-        padding-top: calc(#{$header-height} + 15px);
-        padding-left: calc(#{$sidebar-width} + 25px);
+        padding: calc(#{$header-height} + 15px) 25px 50px calc(#{$sidebar-width} + 25px);
     }
 }
