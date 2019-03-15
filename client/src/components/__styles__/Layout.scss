@@ -4,10 +4,10 @@ $accent-color: #00b5ad;
 $header-height: 50px;
 $sidebar-width: 200px;
 
-.layout {
+#layout {
     min-height: 100%;
 
-    .header {
+    & > .header {
         display: flex;
         justify-content: flex-end;
         position: fixed;
@@ -25,7 +25,7 @@ $sidebar-width: 200px;
         }
     }
 
-    .sidebar {
+    & > .sidebar {
         position: fixed;
         top: 0;
         left: 0;
@@ -59,7 +59,7 @@ $sidebar-width: 200px;
         }
     }
 
-    .content {
+    & > .content {
         padding: calc(#{$header-height} + 15px) 25px 50px calc(#{$sidebar-width} + 25px);
     }
 }

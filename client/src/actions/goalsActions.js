@@ -5,7 +5,7 @@ import history from '../history';
 
 export const createGoal = formValues => {
     return async dispatch => {
-        const response = await api.post('/goals', formValues);
+        const response = await api.post(routes.GOALS, formValues);
         dispatch({
             type: types.CREATE_GOAL,
             payload: response.data
@@ -13,3 +13,13 @@ export const createGoal = formValues => {
         history.push(routes.GOALS);
     }
 };
+
+export const fetchGoals = () => {
+    return async dispatch => {
+        const response = await api.get(routes.GOALS);
+        dispatch({
+            type: types.FETCH_GOALS,
+            payload: response.data
+        });
+    }
+}

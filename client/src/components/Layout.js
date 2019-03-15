@@ -3,7 +3,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 const Layout = props => (
-    <div className='layout'>
+    <div id='layout'>
         {renderHeader()}
         {renderSidebar()}
         <div className='content'>
