@@ -3,30 +3,31 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { reduxForm, Field } from 'redux-form';
 
-import * as actions from '../../actions/goalsActions'; 
+import * as actions from '../../actions/tasksActions'; 
 import routes from '../../constants/routes';
 
-class NewGoalPage extends React.Component {
+class NewTaskPage extends React.Component {
     onSubmit = formValues => {
         // TODO: add some pre-forming, validation
-        this.props.createGoal(formValues);
+        this.props.createTask(formValues);
     }
 
     render() {
         return (
             <div>
-                <h1>New Goal</h1>
+                <h1>New Task</h1>
                 <form onSubmit={this.props.handleSubmit(this.onSubmit)} className='ui form'>
                     {this.renderTitleField()}
                     {this.renderDescriptionField()}
-                    {this.renderStartEndDateFields()}
+                    {this.renderSheduleFields()}
+                    {/* {this.renderRepetitionFields()} */}
                     {this.renderCathegotySelector()}
                     {this.renderImportanceAndComplexitySelectors()}
 
                     <button className='ui right floated right labeled icon primary button'>
                         <i className='icon check' />Create
                     </button>
-                    <Link to={routes.GOALS} className='ui right floated button'>Back</Link>
+                    <Link to={routes.TASKS} className='ui right floated button'>Back</Link>
                 </form>
             </div>
         );
@@ -40,29 +41,8 @@ class NewGoalPage extends React.Component {
                     name='title'
                     component='input'
                     type='text'
-                    placeholder='goal title'
+                    placeholder='task title'
                     autoComplete='off' />
-            </div>
-        );
-    }
-
-    renderStartEndDateFields() {
-        return (
-            <div className='fields'>
-                <div className='four wide field'>
-                    <label>Start date</label>
-                    <Field
-                        name='startDate'
-                        component='input'
-                        type='date' />
-                </div>
-                <div className='four wide field'>
-                    <label>End date</label>
-                    <Field
-                        name='endDate'
-                        component='input'
-                        type='date' />
-                </div>
             </div>
         );
     }
@@ -74,12 +54,54 @@ class NewGoalPage extends React.Component {
                 <Field
                     name='description'
                     component='textarea'
-                    placeholder='goal description'
+                    placeholder='task description'
                     rows='3'
                     autoComplete='off' />
             </div>
         );
     }
+
+    renderSheduleFields() {
+        return (
+            <div className='fields'>
+                <div className='four wide field'>
+                    <label>Date</label>
+                    <Field
+                        name='date'
+                        component='input'
+                        type='date' />
+                </div>
+                <div className='four wide field'>
+                    <label>Time</label>
+                    <Field
+                        name='time'
+                        component='input'
+                        type='time' />
+                </div>
+                <div className='four wide field'>
+                    <label>Duration</label>
+                    <Field
+                        name='duration'
+                        component='select'>
+                        <option value={null}></option>
+                        <option value='5'>~ 5 min</option>
+                        <option value='15'>15 min</option>
+                        <option value='30'>30 min</option>
+                        <option value='45'>45 min</option>
+                        <option value='60'>1 hour</option>
+                        <option value='90'>1.5 hour</option>
+                        <option value='120'>2 hours</option>
+                        <option value='180'>3 hours</option>
+                        <option value='240'>4 hours</option>
+                    </Field>
+                </div>
+            </div>
+        );
+    }
+
+    // renderRepetitionFields() {
+        
+    // }
 
     renderCathegotySelector() {
         // TODO: make categories dynamic             
@@ -141,5 +163,5 @@ class NewGoalPage extends React.Component {
 }
 
 export default reduxForm({
-    form: 'newGoalForm'
-})(connect(null, actions)(NewGoalPage));
+    form: 'newTaskForm'
+})(connect(null, actions)(NewTaskPage));

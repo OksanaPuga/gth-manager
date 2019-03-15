@@ -3,16 +3,15 @@ import { Link } from 'react-router-dom';
 
 import routes from '../../constants/routes';
 
-const GoalItem = ({ goal }) => {
+const TaskItem = ({ task }) => {
     return (
         <div className='item'>
             <div className='content'>
-                {renderTitle(goal.title, goal.id)}
-                {renderCategory(goal.category)}
+                {renderTitle(task.title, task.id)}
+                {renderCategory(task.category)}
                 
                 <div className='extra'>
                     {renderActions()}
-                    {renderLabels(goal.stages, goal.task, goal.habits)}
                 </div>
             </div>
         </div>
@@ -20,7 +19,7 @@ const GoalItem = ({ goal }) => {
 }
 
 const renderTitle = (title, id) => (
-    <Link to={routes.GOALS + '/' + id} className='header'>
+    <Link to={routes.TASKS + '/' + id} className='header'>
         {title}
     </Link>
 );
@@ -35,21 +34,12 @@ const renderCategory = category => {
     ) : null;
 };
 
-const renderLabels = (stages, tasks, habits) => {
-    const stagesLabel = stages && stages.length
-        ? <div className='ui label' key={1}>{stages.length} stages</div>
-        : null;
-    const tasksLabel = tasks && tasks.length
-        ? <div className='ui label' key={2}>{tasks.length} tasks</div>
-        : null;
-    const habitsLabel = habits && habits.length
-        ? <div className='ui label' key={3}>{habits.length} habits</div>
-        : null;
-    return [stagesLabel, tasksLabel, habitsLabel];
-}
-
 const renderActions = () => {
     return [
+        <div className="ui right floated icon labeled tiny primary button" key={0}>
+            <i className='icon check' />
+            mark done
+        </div>,
         <div className="ui right floated tiny primary basic button" key={1}>
             details
         </div>,
@@ -62,4 +52,4 @@ const renderActions = () => {
     ];
 }
 
-export default GoalItem;
+export default TaskItem;

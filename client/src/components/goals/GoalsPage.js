@@ -39,7 +39,6 @@ class GoalsPage extends React.Component {
         }
         return goalsToRender;
     }
-    
 }
 
 const mapStateToProps = state => ({

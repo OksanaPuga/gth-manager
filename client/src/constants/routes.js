@@ -4,5 +4,6 @@ export default {
     GOALS: '/goals',
     NEW_GOAL: '/goals/new',
     TASKS: '/tasks',
+    NEW_TASK: '/tasks/new',
     HABITS: '/habits'
 };
