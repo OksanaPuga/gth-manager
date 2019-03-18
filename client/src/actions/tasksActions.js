@@ -3,13 +3,27 @@ import types from '../constants/types';
 import routes from '../constants/routes';
 import history from '../history';
 
-export const createTask = formValues => {
+export const createTask = (formValues, goal) => {
     return async dispatch => {
-        const response = await api.post(routes.TASKS, formValues);
+        const taskResponse = await api.post(routes.TASKS, formValues);
         dispatch({
             type: types.CREATE_TASK,
-            payload: response.data
+            payload: taskResponse.data
         });
+
+        if (goal) {
+            const updatedChildTasks = goal.tasks
+                ? [ ...goal.tasks, taskResponse.data.id ]
+                : [taskResponse.data.id];
+            const updatedGoal = { ...goal, tasks: updatedChildTasks };
+            const goalResponse = await api.put(routes.GOALS + `/${goal.id}`, updatedGoal);
+            
+            dispatch({
+                type: types.UPDATE_GOAL,
+                payload: goalResponse.data
+            });
+        }
+
         history.push(routes.TASKS);
     }
 };

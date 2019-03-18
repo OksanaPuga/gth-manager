@@ -8,6 +8,8 @@ const goalsReducer = (state = {}, action) => {
             return _.keyBy(action.payload, 'id')
         case types.CREATE_GOAL:
             return { ...state, [action.payload.id]: action.payload };
+        case types.UPDATE_GOAL:
+            return { ...state, [action.payload.id]: action.payload };
         default:
             return state;
     }

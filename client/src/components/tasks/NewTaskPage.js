@@ -3,13 +3,24 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { reduxForm, Field } from 'redux-form';
 
-import * as actions from '../../actions/tasksActions'; 
+import { createTask } from '../../actions/tasksActions';
+import { fetchGoals } from '../../actions/goalsActions'; 
 import routes from '../../constants/routes';
 
 class NewTaskPage extends React.Component {
+    componentDidMount() {
+        if (!this.props.goals || !Object.keys(this.props.goals).length) {
+            this.props.fetchGoals();
+        }
+    }
+
     onSubmit = formValues => {
         // TODO: add some pre-forming, validation
-        this.props.createTask(formValues);
+        const goal = formValues.goal
+            ? this.props.goals[formValues.goal]
+            : null;
+
+        this.props.createTask(formValues, goal);
     }
 
     render() {
@@ -23,6 +34,7 @@ class NewTaskPage extends React.Component {
                     {/* {this.renderRepetitionFields()} */}
                     {this.renderCathegotySelector()}
                     {this.renderImportanceAndComplexitySelectors()}
+                    {this.renderGoalSelector()}
 
                     <button className='ui right floated right labeled icon primary button'>
                         <i className='icon check' />Create
@@ -132,7 +144,7 @@ class NewTaskPage extends React.Component {
 
         const importanceSelector = (
             <div className='eight wide field'>
-                <label>Goal importance</label>
+                <label>Task importance</label>
                 <Field
                     name='importance'
                     component='select'>
@@ -143,7 +155,7 @@ class NewTaskPage extends React.Component {
 
         const complexitySelector = (
             <div className='eight wide field'>
-                <label>Goal complexity</label>
+                <label>Task complexity</label>
                 <Field
                     name='complexity'
                     component='select'>
@@ -160,8 +172,38 @@ class NewTaskPage extends React.Component {
         );
 
     }
+
+    renderGoalSelector() {
+        const goals = this.props.goals;
+        const goalsOptions = [
+            <option key={0} value={null}></option>
+        ];
+        
+        for (let p in goals) {
+            goalsOptions.push(
+                <option key={goals[p].id} value={goals[p].id}>
+                    {goals[p].title}
+                </option>
+            );
+        }
+
+        return (
+            <div className='fluid field'>
+                <label>Attach to Goal</label>
+                <Field
+                    name='goal'
+                    component='select'>
+                    {goalsOptions}
+                </Field>
+            </div>
+        );
+    }
 }
+
+const mapStateToProps = state => ({
+    goals: state.goals
+});
 
 export default reduxForm({
     form: 'newTaskForm'
-})(connect(null, actions)(NewTaskPage));
+})(connect(mapStateToProps, { createTask, fetchGoals })(NewTaskPage));
