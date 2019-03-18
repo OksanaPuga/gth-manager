@@ -9,6 +9,7 @@ const TaskItem = ({ task }) => {
             <div className='content'>
                 {renderTitle(task.title, task.id)}
                 {renderCategory(task.category)}
+                {renderGoalLabel(!!task.goal)}
                 
                 <div className='extra'>
                     {renderActions()}
@@ -33,6 +34,14 @@ const renderCategory = category => {
         </div>
     ) : null;
 };
+
+const renderGoalLabel = isAttached => {
+    return isAttached ? (
+        <a className="ui right corner label">
+            <i className="bullseye icon"></i>
+        </a>
+    ) : null;
+}
 
 const renderActions = () => {
     return [

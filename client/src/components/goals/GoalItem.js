@@ -12,7 +12,7 @@ const GoalItem = ({ goal }) => {
                 
                 <div className='extra'>
                     {renderActions()}
-                    {renderLabels(goal.stages, goal.task, goal.habits)}
+                    {renderLabels(goal.stages, goal.tasks, goal.habits)}
                 </div>
             </div>
         </div>
@@ -37,13 +37,13 @@ const renderCategory = category => {
 
 const renderLabels = (stages, tasks, habits) => {
     const stagesLabel = stages && stages.length
-        ? <div className='ui label' key={1}>{stages.length} stages</div>
+        ? <div className='ui label' key={1}>{getLabelStr(stages.length, 'stage')}</div>
         : null;
     const tasksLabel = tasks && tasks.length
-        ? <div className='ui label' key={2}>{tasks.length} tasks</div>
+        ? <div className='ui label' key={2}>{getLabelStr(tasks.length, 'task')}</div>
         : null;
     const habitsLabel = habits && habits.length
-        ? <div className='ui label' key={3}>{habits.length} habits</div>
+        ? <div className='ui label' key={3}>{getLabelStr(habits.length, 'habit')}</div>
         : null;
     return [stagesLabel, tasksLabel, habitsLabel];
 }
@@ -60,6 +60,12 @@ const renderActions = () => {
             edit
         </div>
     ];
+}
+
+const getLabelStr = (number, entity) => {
+    const isMultiple = number > 1;
+    const suffix = isMultiple ? 's' : '';
+    return `${number} ${entity + suffix}`;
 }
 
 export default GoalItem;
