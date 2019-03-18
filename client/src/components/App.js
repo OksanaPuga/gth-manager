@@ -9,8 +9,9 @@ import TodayPage from './today/TodayPage';
 import GoalsPage from './goals/GoalsPage';
 import NewGoalPage from './goals/NewGoalPage';
 import TasksPage from './tasks/TasksPage';
-import HabitsPage from './habits/HabitsPage';
 import NewTaskPage from './tasks/NewTaskPage';
+import HabitsPage from './habits/HabitsPage';
+import NewHabitPage from './habits/NewHabitPage';
 
 
 const App = () => (
@@ -19,10 +20,11 @@ const App = () => (
             <Switch>
                 <Route exact path={routes.LANDING} component={LandingPage} />
                 <Route path={routes.TODAY} component={TodayPage} />
-                <Route exact path={routes.NEW_GOAL} component={NewGoalPage} />
+                <Route path={routes.NEW_GOAL} component={NewGoalPage} />
                 <Route path={routes.GOALS} component={GoalsPage} />
                 <Route path={routes.NEW_TASK} component={NewTaskPage} />
                 <Route path={routes.TASKS} component={TasksPage} />
+                <Route path={routes.NEW_HABIT} component={NewHabitPage} />
                 <Route path={routes.HABITS} component={HabitsPage} />
             </Switch>
         </Layout>
