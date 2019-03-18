@@ -3,13 +3,24 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { reduxForm, Field } from 'redux-form';
 
-import * as actions from '../../actions/habitsActions'; 
+import { createHabit } from '../../actions/habitsActions';
+import { fetchGoals } from '../../actions/goalsActions'; 
 import routes from '../../constants/routes';
 
 class NewHabitPage extends React.Component {
+    componentDidMount() {
+        if (!this.props.goals) {
+            this.props.fetchGoals();
+        }
+    }
+
     onSubmit = formValues => {
         // TODO: add some pre-forming, validation
-        this.props.createHabit(formValues);
+        const goal = formValues.goal
+            ? this.props.goals[formValues.goal]
+            : null;
+
+        this.props.createHabit(formValues, goal);
     }
 
     render() {
@@ -21,6 +32,7 @@ class NewHabitPage extends React.Component {
                     {/* {this.renderRepetitionFields()} */}
                     {this.renderCathegotySelector()}
                     {this.renderTypeRadio()}
+                    {this.renderGoalSelector()}
 
                     <button className='ui right floated right labeled icon primary button'>
                         <i className='icon check' />Create
@@ -80,8 +92,38 @@ class NewHabitPage extends React.Component {
             </div>
         );
     }
+
+    renderGoalSelector() {
+        const goals = this.props.goals;
+        const goalsOptions = [
+            <option key={0} value={null}></option>
+        ];
+        
+        for (let p in goals) {
+            goalsOptions.push(
+                <option key={goals[p].id} value={goals[p].id}>
+                    {goals[p].title}
+                </option>
+            );
+        }
+
+        return (
+            <div className='fluid field'>
+                <label>Attach to Goal</label>
+                <Field
+                    name='goal'
+                    component='select'>
+                    {goalsOptions}
+                </Field>
+            </div>
+        );
+    }
 }
+
+const mapStateToProps = state => ({
+    goals: state.goals
+});
 
 export default reduxForm({
     form: 'newHabitForm'
-})(connect(null, actions)(NewHabitPage));
+})(connect(mapStateToProps, { createHabit, fetchGoals })(NewHabitPage));
