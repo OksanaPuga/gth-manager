@@ -55,9 +55,9 @@ const renderHabitCheckBtn = counter => (
 );
 
 const renderGoalLabel = isAttached => isAttached ? (
-    <a className="ui circular label">
+    <span className="ui circular label">
         <i className="bullseye icon"></i>
-    </a>
+    </span>
 ) : null;
 
 const getDayStr = daysFromToday => {

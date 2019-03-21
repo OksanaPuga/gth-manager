@@ -7,6 +7,7 @@ import Layout from './Layout';
 import LandingPage from './landing/LandingPage';
 import TodayPage from './today/TodayPage';
 import GoalsPage from './goals/GoalsPage';
+import GoalDetailsPage from './goals/GoalDetailsPage';
 import NewGoalPage from './goals/NewGoalPage';
 import TasksPage from './tasks/TasksPage';
 import NewTaskPage from './tasks/NewTaskPage';
@@ -21,6 +22,7 @@ const App = () => (
                 <Route exact path={routes.LANDING} component={LandingPage} />
                 <Route path={routes.TODAY} component={TodayPage} />
                 <Route path={routes.NEW_GOAL} component={NewGoalPage} />
+                <Route path={routes.GOAL_DETAILS} component={GoalDetailsPage} />
                 <Route path={routes.GOALS} component={GoalsPage} />
                 <Route path={routes.NEW_TASK} component={NewTaskPage} />
                 <Route path={routes.TASKS} component={TasksPage} />

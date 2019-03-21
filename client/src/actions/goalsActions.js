@@ -23,3 +23,13 @@ export const fetchGoals = () => {
         });
     }
 }
+
+export const fetchGoal = id => {
+    return async dispatch => {
+        const response = await api.get(`${routes.GOALS}/${id}`);
+        dispatch({
+            type: types.FETCH_GOAL,
+            payload: response.data
+        });
+    }
+}

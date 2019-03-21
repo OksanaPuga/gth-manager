@@ -37,9 +37,9 @@ const renderCategory = category => {
 
 const renderGoalLabel = isAttached => {
     return isAttached ? (
-        <a className="ui right corner label">
+        <span className="ui right corner label">
             <i className="bullseye icon"></i>
-        </a>
+        </span>
     ) : null;
 }
 
