@@ -13,6 +13,7 @@ import TasksPage from './tasks/TasksPage';
 import TaskDetailsPage from './tasks/TaskDetailsPage';
 import NewTaskPage from './tasks/NewTaskPage';
 import HabitsPage from './habits/HabitsPage';
+import HabitDetailsPage from './habits/HabitDetailsPage';
 import NewHabitPage from './habits/NewHabitPage';
 
 
@@ -29,6 +30,7 @@ const App = () => (
                 <Route path={routes.TASK_DETAILS} component={TaskDetailsPage} />
                 <Route path={routes.TASKS} component={TasksPage} />
                 <Route path={routes.NEW_HABIT} component={NewHabitPage} />
+                <Route path={routes.HABIT_DETAILS} component={HabitDetailsPage} />
                 <Route path={routes.HABITS} component={HabitsPage} />
             </Switch>
         </Layout>

@@ -2,16 +2,16 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 
-import { fetchTask } from '../../actions/tasksActions';
+import { fetchHabit } from '../../actions/habitsActions';
 import { fetchGoal } from '../../actions/goalsActions';
 import routes from '../../constants/routes';
 import GoalItem from '../goals/GoalItem';
 
-class TaskDetailsPage extends React.Component {
+class HabitDetailsPage extends React.Component {
     componentDidMount() {
-        const taskId = this.props.match.params.id;
-        if (!this.props.tasks[taskId]) {
-            this.props.fetchTask(taskId);
+        const habitId = this.props.match.params.id;
+        if (!this.props.habits[habitId]) {
+            this.props.fetchHabit(habitId);
         } else {
             this.fetchGoalIfNeeded();
         }
@@ -22,22 +22,21 @@ class TaskDetailsPage extends React.Component {
     }
 
     fetchGoalIfNeeded() {
-        const task = this.props.tasks[this.props.match.params.id]
-        if (!task) return;
-        if (task.goal && !this.props.goals[task.goal]) {
-            this.props.fetchGoal(task.goal);
+        const habit = this.props.habits[this.props.match.params.id]
+        if (!habit) return;
+        if (habit.goal && !this.props.goals[habit.goal]) {
+            this.props.fetchGoal(habit.goal);
         }
     }
 
     render() {
-        const task = this.props.tasks[this.props.match.params.id];
-        return task ? (
+        const habit = this.props.habits[this.props.match.params.id];
+        return habit ? (
             <div>
                 {this.renderActions()}
 
                 <h2 className='ui header'>
-                    Task: {task.title}
-                    <div className='sub header'>{task.description}</div>
+                    Habit: {habit.title}
                 </h2>
 
                 <h4 className="ui horizontal divider header">
@@ -46,13 +45,9 @@ class TaskDetailsPage extends React.Component {
                 </h4>
                 
                 <div className='ui very relaxed list'>
-                    {this.renderProperty(task.date, 'Date')}
-                    {this.renderProperty(task.time, 'Time')}
-                    {this.renderProperty(task.duration, 'Duration')}
-                    {this.renderProperty(task.category, 'Category')}
-                    {this.renderProperty(task.importance, 'Importance')}
-                    {this.renderProperty(task.complexity, 'Complexity')}
-                    {this.renderParentGoal(task.goal)}
+                    {this.renderProperty(habit.category, 'Category')}
+                    {this.renderProperty(habit.type, 'Type')}
+                    {this.renderParentGoal(habit.goal)}
                 </div>
             </div>
         ) : null;
@@ -67,7 +62,7 @@ class TaskDetailsPage extends React.Component {
                 <div className="ui right floated tiny negative basic button" key={2}>
                     delete
                 </div>
-                <Link to={routes.TASKS} className="ui right floated tiny basic button" key={3}>
+                <Link to={routes.HABITS} className="ui right floated tiny basic button" key={3}>
                     back
                 </Link>  
             </div>
@@ -94,11 +89,11 @@ class TaskDetailsPage extends React.Component {
 }
 
 const mapStateToProps = state => ({
-    tasks: state.tasks,
+    habits: state.habits,
     goals: state.goals
 });
 
 export default connect(mapStateToProps, {
-    fetchTask,
+    fetchHabit,
     fetchGoal
-})(TaskDetailsPage);
+})(HabitDetailsPage);

@@ -8,5 +8,6 @@ export default {
     TASK_DETAILS: '/tasks/:id',
     NEW_TASK: '/tasks/new',
     HABITS: '/habits',
+    HABIT_DETAILS: '/habits/:id',
     NEW_HABIT: '/habits/new'
 };

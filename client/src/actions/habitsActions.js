@@ -36,4 +36,14 @@ export const fetchHabits = () => {
             payload: response.data
         });
     }
+};
+
+export const fetchHabit = id => {
+    return async dispatch => {
+        const response = await api.get(`${routes.HABITS}/${id}`);
+        dispatch({
+            type: types.FETCH_HABIT,
+            payload: response.data
+        });
+    }
 }
