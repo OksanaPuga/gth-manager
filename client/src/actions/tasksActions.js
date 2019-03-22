@@ -36,4 +36,14 @@ export const fetchTasks = () => {
             payload: response.data
         });
     }
+};
+
+export const fetchTask = id => {
+    return async dispatch => {
+        const response = await api.get(`${routes.TASKS}/${id}`);
+        dispatch({
+            type: types.FETCH_TASK,
+            payload: response.data
+        });
+    }
 }

@@ -10,6 +10,7 @@ import GoalsPage from './goals/GoalsPage';
 import GoalDetailsPage from './goals/GoalDetailsPage';
 import NewGoalPage from './goals/NewGoalPage';
 import TasksPage from './tasks/TasksPage';
+import TaskDetailsPage from './tasks/TaskDetailsPage';
 import NewTaskPage from './tasks/NewTaskPage';
 import HabitsPage from './habits/HabitsPage';
 import NewHabitPage from './habits/NewHabitPage';
@@ -25,6 +26,7 @@ const App = () => (
                 <Route path={routes.GOAL_DETAILS} component={GoalDetailsPage} />
                 <Route path={routes.GOALS} component={GoalsPage} />
                 <Route path={routes.NEW_TASK} component={NewTaskPage} />
+                <Route path={routes.TASK_DETAILS} component={TaskDetailsPage} />
                 <Route path={routes.TASKS} component={TasksPage} />
                 <Route path={routes.NEW_HABIT} component={NewHabitPage} />
                 <Route path={routes.HABITS} component={HabitsPage} />
