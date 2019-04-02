@@ -1,34 +1,12 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { connect } from 'react-redux';
 
 import { fetchTask } from '../../actions/tasksActions';
-import { fetchGoal } from '../../actions/goalsActions';
 import routes from '../../constants/routes';
+import withDataForItemDetails from '../hoc/withDataForItemDetails';
 import GoalItem from '../goals/GoalItem';
 
 class TaskDetailsPage extends React.Component {
-    componentDidMount() {
-        const taskId = this.props.match.params.id;
-        if (!this.props.tasks[taskId]) {
-            this.props.fetchTask(taskId);
-        } else {
-            this.fetchGoalIfNeeded();
-        }
-    }
-
-    componentDidUpdate() {
-        this.fetchGoalIfNeeded();
-    }
-
-    fetchGoalIfNeeded() {
-        const task = this.props.tasks[this.props.match.params.id]
-        if (!task) return;
-        if (task.goal && !this.props.goals[task.goal]) {
-            this.props.fetchGoal(task.goal);
-        }
-    }
-
     render() {
         const task = this.props.tasks[this.props.match.params.id];
         return task ? (
@@ -93,12 +71,7 @@ class TaskDetailsPage extends React.Component {
     }
 }
 
-const mapStateToProps = state => ({
-    tasks: state.tasks,
-    goals: state.goals
+export default withDataForItemDetails(TaskDetailsPage, {
+    entity: 'tasks',
+    fetchItemAction: fetchTask
 });
-
-export default connect(mapStateToProps, {
-    fetchTask,
-    fetchGoal
-})(TaskDetailsPage);

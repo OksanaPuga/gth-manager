@@ -1,34 +1,12 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { connect } from 'react-redux';
 
 import { fetchHabit } from '../../actions/habitsActions';
-import { fetchGoal } from '../../actions/goalsActions';
 import routes from '../../constants/routes';
+import withDataForItemDetails from '../hoc/withDataForItemDetails';
 import GoalItem from '../goals/GoalItem';
 
 class HabitDetailsPage extends React.Component {
-    componentDidMount() {
-        const habitId = this.props.match.params.id;
-        if (!this.props.habits[habitId]) {
-            this.props.fetchHabit(habitId);
-        } else {
-            this.fetchGoalIfNeeded();
-        }
-    }
-
-    componentDidUpdate() {
-        this.fetchGoalIfNeeded();
-    }
-
-    fetchGoalIfNeeded() {
-        const habit = this.props.habits[this.props.match.params.id]
-        if (!habit) return;
-        if (habit.goal && !this.props.goals[habit.goal]) {
-            this.props.fetchGoal(habit.goal);
-        }
-    }
-
     render() {
         const habit = this.props.habits[this.props.match.params.id];
         return habit ? (
@@ -88,12 +66,7 @@ class HabitDetailsPage extends React.Component {
     }
 }
 
-const mapStateToProps = state => ({
-    habits: state.habits,
-    goals: state.goals
+export default withDataForItemDetails(HabitDetailsPage, {
+    entity: 'habits',
+    fetchItemAction: fetchHabit
 });
-
-export default connect(mapStateToProps, {
-    fetchHabit,
-    fetchGoal
-})(HabitDetailsPage);
